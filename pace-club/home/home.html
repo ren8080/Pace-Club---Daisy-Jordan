@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pace Club – Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="../base.css">
+<link rel="stylesheet" href="home.css">
+<script src="../common.js"></script>
+<script>if (!Pace.user()) location.replace("../index.html");</script>
+</head>
+<body>
+<!-- ===== Logged-in shell: Home / Maps / Groups ===== -->
+<div class="shell" id="shell">
+  <header class="topbar">
+    <button class="brand-btn" data-view="home" aria-label="Pace Club home"><img src="../runner.png" alt="" width="30" height="27"><span class="tb-hide">PACE CLUB</span></button>
+    <div class="pop-anchor">
+      <button class="tb-icon" id="tb-search" data-pop="p-search" aria-label="Search people" aria-expanded="false" aria-controls="p-search"><i data-i="search" data-s="22"></i></button>
+      <div class="pop pop-search" id="p-search" role="dialog" aria-label="Search people">
+        <label class="ps-box"><i data-i="search" data-s="18"></i><input id="ps-q" type="search" placeholder="Search people" autocomplete="off" aria-label="Search people"></label>
+        <div class="ps-head" id="ps-head"></div>
+        <ul class="ps-list" id="ps-list"></ul>
+      </div>
+    </div>
+    <nav class="tabs" aria-label="Main">
+      <button class="tab" data-view="home" aria-current="page"><i data-i="home" data-s="22"></i><span>Home</span></button>
+      <button class="tab" data-view="maps"><i data-i="map" data-s="22"></i><span>Maps</span></button>
+      <button class="tab" data-view="groups"><i data-i="users" data-s="22"></i><span>Groups</span></button>
+      <span class="tab-ink"></span>
+    </nav>
+    <div class="tb-right">
+      <button class="tb-icon tb-hide" data-act="messages" aria-label="Messages"><i data-i="chat" data-s="22"></i></button>
+      <div class="pop-anchor">
+        <button class="tb-icon" id="bell-btn" data-pop="p-notif" aria-label="Notifications" aria-expanded="false" aria-controls="p-notif"><i data-i="bell" data-s="22"></i><span class="badge" id="n-badge" hidden>0</span></button>
+        <div class="pop pop-notif" id="p-notif" role="dialog" aria-label="Notifications">
+          <div class="pn-head"><h3>Notifications</h3><button class="link-o" id="n-readall">Mark all as read</button></div>
+          <div class="pn-tabs"><button class="on" data-f="all">All</button><button data-f="unread">Unread</button></div>
+          <ul class="pn-list" id="n-list"></ul>
+        </div>
+      </div>
+      <div class="pop-anchor">
+        <button class="tb-icon" id="avatar-btn" data-pop="menu" aria-label="Account menu" aria-expanded="false"><span class="av" data-initial></span></button>
+        <div class="menu pop" id="menu"><p data-name></p><button data-act="logout">Log out</button></div>
+      </div>
+      <button class="tb-icon tb-hide" data-act="settings" aria-label="Settings"><i data-i="gear" data-s="22"></i></button>
+    </div>
+  </header>
+
+  <main class="views">
+
+    <section class="view" id="v-home" data-pos="active" aria-label="Home">
+      <div class="home-grid">
+        <aside class="col-left">
+          <div class="card profile">
+            <div class="av xl" data-initial></div>
+            <h2 data-name></h2>
+            <dl class="stats"><div><dt>Following</dt><dd id="st-following">0</dd></div><div><dt>Followers</dt><dd>0</dd></div><div><dt>Activities</dt><dd>0</dd></div></dl>
+            <button class="goal-row" data-act="goals"><b>Add Goals</b><span>Learn how to record or upload an activity to Pace Club.</span><i data-i="chev" data-s="18"></i></button>
+          </div>
+          <div class="card note" id="note">
+            <div class="note-head">
+              <h3>My notes</h3>
+              <div class="note-tabs" role="tablist"><button role="tab" aria-selected="true" data-scope="today">Today</button><button role="tab" aria-selected="false" data-scope="week">This week</button></div>
+            </div>
+            <p class="note-date" id="note-date"></p>
+            <ul class="note-list" id="note-list"></ul>
+            <p class="note-sum" id="note-sum"></p>
+            <form class="note-add" id="note-add"><input id="note-in" maxlength="80" placeholder="Add a goal, km or activity…" aria-label="New note" autocomplete="off"><button class="btn-sm" type="submit">Add</button></form>
+            <p class="note-hint">Tip: write “5 km run” and it counts toward your km once you tick it.</p>
+          </div>
+        </aside>
+
+        <section class="feed" aria-label="Feed">
+        <article class="card started" id="started">
+          <div class="hero-img"><img src="../runner.png" alt=""></div>
+          <button class="gs-x" id="gs-hide" aria-label="Hide Getting Started">Hide</button>
+          <div class="started-body">
+            <h1>Getting Started</h1>
+            <p class="sub">We’ve listed a couple of steps to help you get set up on Pace Club.</p>
+            <div class="step"><i data-i="record" data-s="56"></i><div><h3>Record your first activity</h3><p>Set up your GPS device and seamlessly upload your workouts right to Pace Club. No device? No problem – record and connect anytime, anywhere with our mobile app.</p><button class="btn-sm" data-act="connect">Connect Device</button></div></div>
+            <div class="step"><i data-i="contact" data-s="56"></i><div><h3>See what your friends are doing</h3><p>Find friends on Pace Club or invite them to join you. Cheer them on and get inspired by their runs.</p><button class="btn-sm" data-act="find">Find Friends</button></div></div>
+            <div class="step"><i data-i="map" data-s="56"></i><div><h3>Explore routes near you</h3><p>Search parks, tracks and trails on the map and plan where to run next.</p><button class="btn-sm" data-act="maps">Open Maps</button></div></div>
+          </div>
+        </article>
+
+        <form class="card composer" id="composer" novalidate>
+          <div class="c-top">
+            <span class="av" data-initial></span>
+            <textarea id="c-text" rows="2" maxlength="500" placeholder="Share a run, a walk or an errand…" aria-label="Post caption"></textarea>
+          </div>
+          <div class="c-more">
+            <div class="c-types" role="group" aria-label="Activity type">
+              <button type="button" class="chip-t on" data-t="Run">Run</button>
+              <button type="button" class="chip-t" data-t="Walk">Walk</button>
+              <button type="button" class="chip-t" data-t="Errand">Errand</button>
+            </div>
+            <div class="c-nums">
+              <label>Distance (km)<input id="c-km" type="number" min="0" max="500" step="0.1" inputmode="decimal"></label>
+              <label>Time (min)<input id="c-min" type="number" min="0" max="3000" step="1" inputmode="numeric"></label>
+            </div>
+            <div class="c-row">
+              <label class="pill photo-btn"><input type="file" id="c-photo" accept="image/*" hidden><i data-i="image" data-s="16"></i> Add photo</label>
+              <span class="c-prev" id="c-prev"></span>
+              <button class="btn-sm" type="submit">Post</button>
+            </div>
+          </div>
+        </form>
+
+        <div id="feed-list" class="feed-list"></div>
+        <div id="feed-end" class="feed-end"></div>
+        </section>
+
+        <aside class="card friends">
+          <h3>All Friends</h3>
+          <label class="f-search"><i data-i="search" data-s="16"></i><input id="f-q" type="search" placeholder="Search friends" aria-label="Search friends"></label>
+          <div class="f-count" id="f-count"></div>
+          <ul class="f-list" id="f-list"></ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="view" id="v-maps" data-pos="off" aria-label="Maps">
+      <div id="map" role="application" aria-label="Map"></div>
+      <div class="panel" id="m-panel">
+        <div class="sbox">
+          <input id="m-q" type="search" placeholder="Search places" autocomplete="off" aria-label="Search places">
+          <button class="clear" id="m-clear" aria-label="Clear search"><i data-i="close" data-s="18"></i></button>
+          <button class="go" id="m-go" aria-label="Search"><i data-i="search" data-s="20"></i></button>
+        </div>
+        <div class="chips">
+          <button class="chip" data-q="park" data-label="Parks">Parks</button>
+          <button class="chip" data-q="running track" data-label="Running tracks">Running tracks</button>
+          <button class="chip" data-q="trail" data-label="Trails">Trails</button>
+          <button class="chip" data-q="cafe" data-label="Cafés">Cafés</button>
+          <button class="chip" data-q="gym" data-label="Gyms">Gyms</button>
+        </div>
+        <ul class="res" id="m-res" role="listbox" aria-label="Search results"></ul>
+        <div class="place" id="m-place"></div>
+      </div>
+      <div class="ctrls">
+        <button class="ctrl" id="c-layer" aria-label="Change map type"><i data-i="layers" data-s="22"></i></button>
+        <button class="ctrl" id="c-me" aria-label="My location"><i data-i="locate" data-s="22"></i></button>
+        <div class="zoom"><button class="ctrl" id="c-in" aria-label="Zoom in"><i data-i="plus" data-s="22"></i></button><button class="ctrl" id="c-out" aria-label="Zoom out"><i data-i="minus" data-s="22"></i></button></div>
+      </div>
+    </section>
+
+    <section class="view" id="v-groups" data-pos="off" aria-label="Groups">
+      <div class="empty"><div><img src="../runner.png" alt=""><h1>Groups are coming soon</h1><p>Run clubs and challenges will live here.</p></div></div>
+    </section>
+  </main>
+  <div class="toast" id="toast" role="status"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="home.js"></script>
+</body>
+</html>

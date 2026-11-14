@@ -1,0 +1,59 @@
+/* Pace Club — auth pages (index + signup): split layout, welcome screen, slide screens */
+/* ---------- Layout: phone = one column, desktop = split ---------- */
+.app{display:flex;height:100dvh;overflow:hidden;background:var(--bg)}
+.stage{flex:1 1 0;min-width:0;position:relative;overflow:hidden}
+
+.brand-panel{flex:0 0 0%;opacity:0;overflow:hidden;background:#242428;color:#fff;
+  transition:flex-basis var(--slow) var(--ease),opacity .5s ease .1s}
+.brand-inner{width:max(44vw,380px);height:100%;padding:56px clamp(40px,5vw,80px);display:flex;flex-direction:column;justify-content:space-between}
+.logo{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:.01em}
+.route{width:min(300px,70%);opacity:.9}
+.route path{stroke-dasharray:600;stroke-dashoffset:600}
+.brand-panel h2{font-family:var(--display);font-weight:700;font-size:clamp(40px,4.6vw,68px);line-height:1.02;letter-spacing:-.025em}
+.brand-panel p{margin-top:18px;color:#B8B8C2;font-size:clamp(16px,1.4vw,19px);line-height:1.5;max-width:30ch}
+
+@media (min-width:860px){
+  .brand-panel{flex-basis:44%;opacity:1}
+  .brand-panel .route path{animation:route 2.2s .5s var(--ease) forwards}
+}
+@media (min-width:1200px){.brand-panel{flex-basis:50%}}
+@keyframes route{to{stroke-dashoffset:0}}
+
+/* ---------- Screens (slide transition) ---------- */
+.screen{position:absolute;inset:0;display:flex;overflow-y:auto;
+  transition:transform .55s var(--ease),opacity .55s var(--ease),background-color var(--slow) var(--ease),color var(--slow) var(--ease);will-change:transform}
+.screen[data-pos="right"]{transform:translateX(100%);opacity:0;pointer-events:none;visibility:hidden}
+.screen[data-pos="left"]{transform:translateX(-28%);opacity:0;pointer-events:none;visibility:hidden}
+.screen[data-pos="active"]{transform:none;opacity:1;visibility:visible}
+.screen.hiding{visibility:visible}
+.inner{width:100%;max-width:480px;margin:auto;display:flex;flex-direction:column;
+  padding:max(28px,env(safe-area-inset-top)) clamp(24px,4vw,40px) max(32px,env(safe-area-inset-bottom));
+  transition:max-width var(--slow) var(--ease)}
+.inner.full{min-height:100%}
+.inner.center{align-items:center;text-align:center;gap:14px}
+
+/* ---------- Welcome: orange on phones, light on desktop (colours animate on resize) ---------- */
+#welcome{--w-bg:var(--orange);--w-fg:#fff;--p-bg:#fff;--p-fg:var(--orange);--s-bd:rgba(255,255,255,.75);--s-fg:#fff;
+  background-color:var(--w-bg);color:var(--w-fg);padding-top:24px}
+@media (min-width:860px){
+  #welcome{--w-bg:var(--bg);--w-fg:var(--ink);--p-bg:var(--orange);--p-fg:#fff;--s-bd:var(--ink);--s-fg:var(--ink)}
+  .inner.full{min-height:0}
+  .hero{flex:0 0 auto!important;margin-bottom:40px}
+}
+.hero{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;
+  transition:flex-grow var(--slow) var(--ease),margin var(--slow) var(--ease)}
+.runner{width:clamp(110px,16vw,150px);height:auto;display:block;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(2deg)}}
+@media (min-width:860px) and (prefers-color-scheme:dark){.runner{filter:invert(1) brightness(1.4)}}
+.brand{font-family:var(--display);font-weight:700;font-size:clamp(40px,5vw,48px);letter-spacing:-.02em}
+.tag{font-size:18px;line-height:1.45;max-width:22ch;opacity:.9}
+.actions{display:flex;flex-direction:column;gap:12px}
+.w-primary{background-color:var(--p-bg);color:var(--p-fg)}
+.w-secondary{background-color:transparent;border-color:var(--s-bd);color:var(--s-fg)}
+.w-secondary:hover{background-color:rgba(127,127,127,.14)}
+
+@media (prefers-reduced-motion:reduce){
+  .screen[data-pos="right"],.screen[data-pos="left"]{transform:none}
+  .runner,.route path{animation:none}
+  .route path{stroke-dashoffset:0}
+}

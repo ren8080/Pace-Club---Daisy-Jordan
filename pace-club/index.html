@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pace Club – Welcome, Log in & Sign up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="auth.css">
+<script src="common.js"></script>
+<script>if (Pace.user()) location.replace("home/home.html");</script>
+</head>
+<body>
+<div class="app">
+
+  <!-- Brand panel: collapses to nothing on mobile, slides open on desktop -->
+  <aside class="brand-panel" aria-hidden="true">
+    <div class="brand-inner">
+      <span class="logo">PACE CLUB</span>
+      <svg class="route" viewBox="0 0 300 160" fill="none" stroke="#FC4C02" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 140 C60 140 60 60 110 70 S170 130 210 80 S260 20 290 30"/><circle cx="290" cy="30" r="8" fill="#FC4C02"/></svg>
+      <div>
+        <h2>Run together.<br>Go further.</h2>
+        <p>Join a club, sign up for events and track every run.</p>
+      </div>
+    </div>
+  </aside>
+
+  <main class="stage">
+
+    <section class="screen" id="welcome" data-pos="active" aria-label="Welcome">
+      <div class="inner full">
+        <div class="hero">
+          <img class="runner" src="runner.png" alt="" width="350" height="312">
+          <h1 class="brand">Pace Club</h1>
+          <p class="tag">Run together. Go further.</p>
+        </div>
+        <div class="actions">
+          <button class="btn w-primary" data-go="signup"><span class="label">Sign up</span></button>
+          <button class="btn w-secondary" data-go="login"><span class="label">Log in</span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="login" data-pos="right" aria-label="Log in">
+      <div class="inner">
+        <div class="top">
+          <button class="icon-btn" data-back="welcome" aria-label="Back"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <span class="mark">Pace Club</span>
+        </div>
+        <h1>Welcome back</h1>
+        <p class="sub">Log in to see your club and your next run.</p>
+        <form novalidate data-form="login">
+          <div class="field"><label for="l-id">Email or username</label><input id="l-id" name="id" autocomplete="username" required><span class="msg">Enter your email or username.</span></div>
+          <div class="field"><label for="l-pw">Password</label>
+            <div class="pw"><input id="l-pw" name="pw" type="password" autocomplete="current-password" required><button type="button" class="show" aria-label="Show password">Show</button></div>
+            <span class="msg">Enter your password.</span></div>
+          <button type="button" class="link right">Forgot password?</button>
+          <button class="btn btn-orange" type="submit"><span class="label">Log in</span><span class="spinner"></span></button>
+        </form>
+        <p class="switch">No account yet? <button class="link" data-go="signup">Sign up</button></p>
+      </div>
+    </section>
+
+    <section class="screen" id="signup" data-pos="right" aria-label="Sign up">
+      <div class="inner">
+        <div class="top">
+          <button class="icon-btn" data-back="welcome" aria-label="Back"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <span class="mark">Pace Club</span>
+        </div>
+        <h1>Create your account</h1>
+        <p class="sub">It only takes a minute.</p>
+        <form novalidate data-form="signup">
+          <div class="field"><label for="s-name">Full name</label><input id="s-name" name="name" autocomplete="name" required><span class="msg">Enter your full name.</span></div>
+          <div class="field"><label for="s-user">Username</label><input id="s-user" name="user" autocomplete="username" required><span class="msg">Choose a username.</span></div>
+          <div class="field"><label for="s-mail">Email</label><input id="s-mail" name="mail" type="email" autocomplete="email" required><span class="msg">Enter a valid email address.</span></div>
+          <div class="field"><label for="s-tel">Phone number</label><input id="s-tel" name="tel" type="tel" autocomplete="tel" required><span class="msg">Enter your phone number.</span></div>
+          <div class="row">
+            <div class="field"><label for="s-dob">Birth date</label><input id="s-dob" name="dob" type="date" required><span class="msg">Pick your birth date.</span></div>
+            <div class="field"><label for="s-gen">Gender</label>
+              <select id="s-gen" name="gen" required><option value="">Select</option><option>Woman</option><option>Man</option><option>Non-binary</option><option>Prefer not to say</option></select>
+              <span class="msg">Select one.</span></div>
+          </div>
+          <div class="field"><label for="s-pw">Password</label>
+            <div class="pw"><input id="s-pw" name="pw" type="password" autocomplete="new-password" required><button type="button" class="show" aria-label="Show password">Show</button></div>
+            <span class="msg">Use at least 8 characters.</span></div>
+          <div class="field"><label for="s-pw2">Confirm password</label><input id="s-pw2" name="pw2" type="password" autocomplete="new-password" required><span class="msg">Passwords don’t match.</span></div>
+          <div class="field"><label class="terms"><input type="checkbox" name="terms" required> I agree to the Terms and Privacy Policy</label><span class="msg">Agree to continue.</span></div>
+          <button class="btn btn-orange" type="submit"><span class="label">Create account</span><span class="spinner"></span></button>
+        </form>
+        <p class="switch">Already have an account? <button class="link" data-go="login">Log in</button></p>
+      </div>
+    </section>
+
+  </main>
+</div>
+<script src="auth.js"></script>
+</body>
+</html>

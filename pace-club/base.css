@@ -1,0 +1,77 @@
+/* Pace Club — shared base: tokens, typography, buttons, form fields, page transitions */
+:root{
+  --orange:#FC4C02; --orange-press:#D93F00; --orange-soft:#FFE9DF;
+  --bg:#F7F7FA; --surface:#FFFFFF; --ink:#242428; --muted:#6D6D78; --line:#D9D9E0; --err:#C62828;
+  --display:"Space Grotesk","Helvetica Neue",Arial,sans-serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --ease:cubic-bezier(.65,.05,.2,1);
+  --slow:.7s;
+}
+@media (prefers-color-scheme:dark){:root{--bg:#1B1B1F;--surface:#2A2A30;--ink:#F7F7FA;--muted:#A6A6B2;--line:#44444D;--orange-soft:#3A2218;--err:#FF8A80}}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+html{overflow-x:hidden}
+body{background:var(--bg);font-family:var(--body);color:var(--ink);-webkit-font-smoothing:antialiased}
+
+/* ---------- Buttons ---------- */
+.btn{position:relative;overflow:hidden;appearance:none;border:2px solid transparent;border-radius:999px;height:54px;width:100%;
+  font:600 16px var(--body);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:transform .15s ease,filter .2s ease,background-color var(--slow) var(--ease),color var(--slow) var(--ease),border-color var(--slow) var(--ease)}
+.btn:hover{filter:brightness(.94)}
+.btn:active{transform:scale(.97)}
+.btn:disabled{cursor:progress}
+.btn-orange{background:var(--orange);color:#fff}
+.ripple{position:absolute;border-radius:50%;background:currentColor;opacity:.22;transform:scale(0);animation:rip .6s ease-out forwards;pointer-events:none}
+@keyframes rip{to{transform:scale(1);opacity:0}}
+.spinner{width:20px;height:20px;border:3px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
+.btn.loading .label{display:none}.btn.loading .spinner{display:block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.btn:focus-visible,.link:focus-visible,.icon-btn:focus-visible,.show:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+#welcome .btn:focus-visible{outline-color:currentColor}
+
+/* ---------- Forms ---------- */
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;min-height:44px}
+.icon-btn{appearance:none;border:0;background:var(--surface);color:var(--ink);width:44px;height:44px;border-radius:50%;cursor:pointer;display:grid;place-items:center;
+  box-shadow:0 0 0 1px var(--line);transition:transform .15s ease,background-color .2s ease}
+.icon-btn:hover{background:var(--orange-soft)}.icon-btn:active{transform:scale(.92)}
+.mark{font-family:var(--display);font-weight:700;font-size:18px;color:var(--orange)}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(28px,3vw,34px);letter-spacing:-.02em;line-height:1.1}
+.sub{color:var(--muted);margin:8px 0 24px;font-size:16px;line-height:1.4}
+.inner.center .sub{margin:0}
+form{display:flex;flex-direction:column;gap:16px}
+.field{display:flex;flex-direction:column;gap:6px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:380px){.row{grid-template-columns:1fr}}
+label{font-weight:600;font-size:14px}
+input,select{width:100%;height:52px;padding:0 16px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:400 16px var(--body);
+  transition:border-color .2s ease,box-shadow .2s ease}
+input:focus,select:focus{border-color:var(--orange);box-shadow:0 0 0 4px var(--orange-soft);outline:none}
+.field.bad input,.field.bad select{border-color:var(--err)}
+.msg{font-size:13px;color:var(--err);max-height:0;overflow:hidden;opacity:0;transition:max-height .3s ease,opacity .3s ease}
+.field.bad .msg{max-height:40px;opacity:1}
+.pw{position:relative}.pw input{padding-right:64px}
+.show{position:absolute;right:6px;top:6px;height:40px;padding:0 12px;border:0;background:none;color:var(--muted);font:600 13px var(--body);cursor:pointer;border-radius:10px}
+.show:hover{color:var(--orange)}
+.link{background:none;border:0;padding:0;font:600 14px var(--body);color:var(--ink);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.link:hover{color:var(--orange)}
+.right{align-self:flex-end}
+.terms{display:flex;gap:10px;align-items:center;font-size:14px;font-weight:400;color:var(--muted)}
+.terms input{width:22px;height:22px;accent-color:var(--orange);flex:none}
+.switch{text-align:center;color:var(--muted);font-size:15px;margin-top:20px}
+
+/* ---------- Page-to-page transitions (driven by common.js) ---------- */
+@keyframes inFwd{from{opacity:0;transform:translateX(48px)}}
+@keyframes inBack{from{opacity:0;transform:translateX(-48px)}}
+@keyframes inFade{from{opacity:0}}
+@keyframes outFwd{to{opacity:0;transform:translateX(-48px)}}
+@keyframes outBack{to{opacity:0;transform:translateX(48px)}}
+.enter-fwd body{animation:inFwd .55s var(--ease) both}
+.enter-back body{animation:inBack .55s var(--ease) both}
+.enter-fade body{animation:inFade .5s ease both}
+.leave-fwd body{animation:outFwd .38s var(--ease) forwards}
+.leave-back body{animation:outBack .38s var(--ease) forwards}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition-duration:.01ms!important}
+  .enter-fwd body,.enter-back body,.enter-fade body,.leave-fwd body,.leave-back body{animation:none}
+}
